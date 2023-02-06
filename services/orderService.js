@@ -148,7 +148,7 @@ exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
     } catch (err) {
-        res.status(400).send(`Webhook Error: ${err.message}`);
-        return;
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+        
     }
 })
