@@ -2,7 +2,7 @@ const asyncHandler = require( 'express-async-handler' );
 
 const sharp = require('sharp');
 const { v4: uuidv4 } = require('uuid');
-const { uploadSingleImage } = require( '../middlewares/uploadImageMIddleware' );
+const { uploadSingleImage } = require( '../middlewares/uploadImageMIiddleware' );
 const factory = require( './handlersFactory' );
 
 const Brand = require('../models/brandModel');
