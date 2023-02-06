@@ -8,6 +8,7 @@ const ApiError = require( '../utils/apiError' );
 const Cart = require( '../models/cartModel' );
 const Order = require( '../models/orderModel' );
 const Product = require( '../models/productModel' );
+const expressAsyncHandler = require('express-async-handler');
 
 // @desc    create a cash order
 // @route   POST /api/v1/orders/cartId
@@ -137,4 +138,17 @@ exports.checkoutSession = asyncHandler( async ( req, res, next ) => {
 
     // 4) send session to response
     res.status( 200 ).json( { status: 'success', session } );
-} );
+});
+
+exports.webhookCheckout = expressAsyncHandler(async (req, res, next) => {
+    const sig = req.headers['stripe-signature'];
+      
+    let event;
+      
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } catch (err) {
+        res.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+})
